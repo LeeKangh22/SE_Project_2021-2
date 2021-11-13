@@ -24,6 +24,3 @@ class staff():
         phone_num = self.phone_num,
         #order = self.order
         )
-
-hojun = staff(1, 'sid', 'spw', 'hojun', '01012345678', 1)
-hojun.create_staff()
