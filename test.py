@@ -10,4 +10,3 @@ from model.models import *
 hojun = Staff.objects.get(id = 1)
 
 print(hojun.phone_num)
-    
