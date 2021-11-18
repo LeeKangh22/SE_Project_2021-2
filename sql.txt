@@ -1,0 +1,89 @@
+CREATE TABLE `menu` (
+  `id` int NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `category` varchar(30) DEFAULT NULL,
+  `price` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `stock` (
+  `id` int NOT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `unit` varchar(10) DEFAULT NULL,
+  `amount` int DEFAULT NULL,
+  `price` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `menu_to_stock` (
+  `menu_id` int DEFAULT NULL,
+  `stock_id` int DEFAULT NULL,
+  KEY `menu_id` (`menu_id`),
+  KEY `stock_id` (`stock_id`),
+  CONSTRAINT `menu_to_stock_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `menu_to_stock_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`id`) ON UPDATE CASCADE
+);
+
+CREATE TABLE `orders` (
+  `id` int NOT NULL,
+  `amount` int DEFAULT NULL,
+  `order_id` int DEFAULT NULL,
+  `menu_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `menu_id` (`menu_id`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON UPDATE CASCADE
+);
+
+CREATE TABLE `staff` (
+  `id` int NOT NULL,
+  `staff_id` varchar(10) DEFAULT NULL,
+  `staff_pw` varchar(10) DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `phone_num` char(11) DEFAULT NULL,
+  `order_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE
+);
+
+
+CREATE TABLE `tables` (
+  `id` int NOT NULL,
+  `order_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `tables_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE
+);
+
+CREATE TABLE `order_timer` (
+  `id` int NOT NULL,
+  `start_time` varchar(20) DEFAULT NULL,
+  `end_time` varchar(20) DEFAULT NULL,
+  `order_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `start_time` (`start_time`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `order_timer_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE
+);
+
+
+CREATE TABLE `menu_timer` (
+  `id` int NOT NULL,
+  `menu_id` int DEFAULT NULL,
+  `start_time` varchar(20) DEFAULT NULL,
+  `end_time` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `menu_id` (`menu_id`),
+  KEY `start_time` (`start_time`),
+  CONSTRAINT `menu_timer_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `menu_timer_ibfk_2` FOREIGN KEY (`start_time`) REFERENCES `order_timer` (`start_time`) ON UPDATE CASCADE
+);
+
+
+
+
+
+
+
+
+
