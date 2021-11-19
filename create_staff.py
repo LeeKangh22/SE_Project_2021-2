@@ -24,3 +24,6 @@ class staff():
         phone_num = self.phone_num,
         #order = self.order
         )
+        
+hojun = staff(2, 'sson', 1234, 'songhojun', '01097516794', '')
+hojun.create_staff()
