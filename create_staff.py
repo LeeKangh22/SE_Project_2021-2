@@ -25,5 +25,6 @@ class staff():
         #order = self.order
         )
 
-hojun = staff(1, 'sid', 'spw', 'hojun', '01012345678', 1)
+hojun = staff(1, 'sid', 'spw', 'hojun', '010162345678', 1)
 hojun.create_staff()
+
